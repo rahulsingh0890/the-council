@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #F3F4F6;
+    --background-secondary: #E5E7EB;
+    --foreground: #1A1A1A;
+    --foreground-secondary: #4A4A4A;
+    --muted: #6B7280;
+    --accent: #FF5A1F;
+    --accent-hover: #E54D15;
+    --card: #FFFFFF;
+    --border: #E5E7EB;
+  }
+
+  body {
+    @apply text-foreground antialiased;
+    background-color: var(--background);
+  }
+
+  /* Clean Inter typography for all text */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Editorial card style - White on Gray */
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 p-6 shadow-sm;
+  }
+
+  /* Agent card with color accent - White on Gray */
+  .agent-card {
+    @apply relative overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm;
+  }
+
+  .agent-card::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-1;
+    background: var(--agent-color, var(--accent));
+  }
+
+  /* Lenny Orange button */
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg font-medium text-white
+           transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    background-color: var(--accent);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--accent-hover);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  /* Clean input field */
+  .input-field {
+    @apply w-full bg-gray-50 border border-gray-200 rounded-lg p-4
+           text-base font-medium text-gray-900 placeholder:text-gray-400
+           focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 focus:bg-white
+           resize-none transition-all duration-200;
+  }
+
+  /* Sidebar styling - Slightly darker than main bg */
+  .sidebar {
+    @apply border-r border-gray-200 bg-white;
+  }
+
+  /* Verdict card - White on Gray with emphasis */
+  .verdict-card {
+    @apply bg-white rounded-lg border border-gray-200 p-6 shadow-sm;
+  }
+
+  /* Agent name - Clean Inter styling */
+  .agent-name {
+    @apply text-lg font-bold tracking-tight text-gray-900;
+  }
+
+  /* Section headers */
+  .section-header {
+    font-family: 'Spectral', Georgia, 'Times New Roman', serif;
+    @apply font-semibold text-foreground;
+  }
+
+  /* Editorial link */
+  .link-editorial {
+    @apply text-accent hover:underline transition-colors duration-200;
+  }
+}
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  @apply rounded;
+  background: linear-gradient(90deg, #f5f5f5 25%, #ebebeb 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Staggered fade in for cards */
+.fade-in-stagger > * {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+.fade-in-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.fade-in-stagger > *:nth-child(2) { animation-delay: 50ms; }
+.fade-in-stagger > *:nth-child(3) { animation-delay: 100ms; }
+.fade-in-stagger > *:nth-child(4) { animation-delay: 150ms; }
+
+/* Clean scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
+}
+
+/* Selection color - Orange tint */
+::selection {
+  background: rgba(255, 90, 31, 0.15);
+  color: var(--foreground);
+}

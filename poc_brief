@@ -1,0 +1,37 @@
+# Role
+You are a Senior Principal Software Architect. I want you to scaffold an end-to-end prototype for a multi-agent AI system called "The PM High Council."
+
+# Core Concept
+The application allows a user to input a product problem (e.g., "High churn on onboarding"). The system then instantiates 3 distinct AI Agents based on real-world product leaders (Brian Chesky, Marty Cagan, Elena Verna). These agents answer the user's prompt using Retrieval Augmented Generation (RAG) based on their specific podcast transcripts, and then "debate" each other to offer a synthesized solution.
+
+# Tech Stack Requirements
+1. Backend: Python, FastAPI.
+2. AI Orchestration: LangChain + LangGraph (REQUIRED for the multi-agent state management).
+3. Database: ChromaDB (Local vector store) for storing transcript embeddings.
+4. Frontend: Next.js + Tailwind CSS + Shadcn/UI.
+5. Aesthetic: "Apple-like Minimalist." High whitespace, Inter/San Francisco font, clean typography, greyscale color palette with subtle accents. No clutter.
+
+# Phase 1: Data Ingestion (Script)
+Create a Python script (`ingest_data.py`) that:
+- Reads markdown files from a local directory `/data/transcripts`.
+- Splits the text into chunks.
+- Uses OpenAI Embeddings.
+- metadata tagging: Tag each chunk with the `speaker_name` (filename) so we can filter retrieval by agent later.
+- Persists this to a local `./chroma_db` folder.
+
+# Phase 2: The Agent Architecture (LangGraph)
+Define a StateGraph in `agent_graph.py` with the following nodes:
+1. `Supervisor`: Analyzes the user query and delegates to the 3 agents.
+2. `Agent_Chesky`: RAG-enabled agent extracting wisdom from `brian_chesky.md`. Focus: Design/Experience.
+3. `Agent_Cagan`: RAG-enabled agent extracting wisdom from `marty_cagan.md`. Focus: Process/Empowerment.
+4. `Agent_Verna`: RAG-enabled agent extracting wisdom from `elena_verna.md`. Focus: Growth/Metrics.
+5. `Synthesizer`: A final node that looks at the conflicting advice and summarizes the trade-offs.
+
+# Phase 3: The Frontend (Next.js)
+Create a page that mirrors a "Strategic Memo" interface, not a standard chatbot.
+- Input: A large, clean text area for the "Problem Statement."
+- Output: Do not just stream text. Display 3 distinct "Cards" side-by-side representing the 3 agents' responses.
+- Below the cards: A "Synthesis" block that summarizes the debate.
+
+# Execution Plan
+Please generate the directory structure, the `requirements.txt`, and the core code for `ingest_data.py`, `agent_graph.py`, and the main Next.js `page.tsx`.
